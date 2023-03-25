@@ -25,9 +25,9 @@ const Feed = () => {
       }}
       >
         <Sidebar selectedCategory={selectedCategory} setSelectedCategory={setSelectedCategory} />
-        <Typography className='copyright' variant='body2' sx={{mt: 1.5, color: '#fff'}} >
+        {/* <Typography className='copyright' variant='body2' sx={{mt: 1.5, color: '#fff'}} >
           Copyright 2023 
-        </Typography>
+        </Typography> */}
       </Box>
       <Box p={2} sx={{ overflowY: 'auto', height: '90vh', flex: 2 }} >
         <Typography variant='h4' fontWeight='bold' mb={2} sx={{
