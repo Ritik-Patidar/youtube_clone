@@ -1,15 +1,21 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useContext } from 'react'
 import { Box, Typography } from '@mui/material'
 import { Videos } from './';
 import { fetchFromAPI } from '../utils/fetchFromAPI';
 import { useParams } from 'react-router-dom';
+import { UserContext } from '../App';
 
 const SearchFeed = () => {
   const [videos, setVideos] = useState([]);
   const { searchTerm } = useParams();
+  const { setLoading } = useContext(UserContext);
 
   useEffect(() => {
-    fetchFromAPI(`search?part=snippet&q=${searchTerm}`).then((res) => setVideos(res.items));
+    setLoading(true);
+    fetchFromAPI(`search?part=snippet&q=${searchTerm}`).then((res) => {
+      setVideos(res.items);
+      setLoading(false);
+    });
   }, [searchTerm]);
 
   return (
