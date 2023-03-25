@@ -1,22 +1,32 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import ReactPlayer from 'react-player';
 import { Typography, Box, Stack } from '@mui/material';
 import { CheckCircle } from '@mui/icons-material';
 import { Videos } from './';
 import { fetchFromAPI } from '../utils/fetchFromAPI';
+import { UserContext } from '../App';
 
 const VideoDetails = () => {
   const [videoDetail, setVideoDetail] = useState(null);
   const [relatedVideos, setRelatedVideos] = useState([]);
   const { id } = useParams();
+  const { setLoading } = useContext(UserContext);
 
   useEffect(() => {
+    setLoading(true);
     fetchFromAPI(`videos?part=snippet,statistics&id=${id}`)
-      .then((data) => setVideoDetail(data?.items[0]))
+      .then((data) => {
+        setVideoDetail(data?.items[0]);
+        setLoading(false);
+      })
 
+    setLoading(true);
     fetchFromAPI(`search?part=snippet&relatedToVideoId=${id}&type=video`)
-      .then((data) => setRelatedVideos(data?.items))
+      .then((data) => {
+        setRelatedVideos(data?.items)
+        setLoading(true);
+      })
   }, [id])
 
   if (!videoDetail?.snippet) return 'Loading...';
