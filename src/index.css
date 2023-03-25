@@ -42,7 +42,7 @@ a {
 .search-bar {
   border: none;
   outline: none;
-  width: 350px;
+  width: 325px;
 }
 
 .category-btn {
@@ -84,5 +84,11 @@ a {
   }
   .search-bar {
     width: 200px;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .search-bar {
+    width: 140px;
   }
 }
